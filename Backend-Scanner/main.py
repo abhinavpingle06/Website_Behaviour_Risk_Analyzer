@@ -38,7 +38,7 @@ async def scan(request: ScanRequest):
     # scan_id = str(uuid.uuid4())
 
     try:
-        
+        # print(type(request))
         result = await scan_url(request.url)
         # 🚀 Start container in detached mode
         # container = docker_client.containers.run(
