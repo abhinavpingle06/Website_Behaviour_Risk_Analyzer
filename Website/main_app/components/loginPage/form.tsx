@@ -20,19 +20,12 @@ export default function Login() {
             
             // console.log(e.target) //React returns jsx instead of value
             setIsvalid(true)
-<<<<<<< HEAD
             console.log(process.env.DATABASE_URL);
-=======
->>>>>>> 0b04b3d439771333a8c5319e7a60173ee3d38cbf
             const formData = new FormData(e.target)
             const email = formData.get("email")?.toString() ?? ""
             const pass = formData.get("password")?.toString() ?? "" //fetchs from name and converts to string from formfiledata
             startTransition(async () => {
-<<<<<<< HEAD
-                var res = await fetch("http://localhost:3000/api/auth/login", {
-=======
-                var res = await fetch("http://127.0.0.1:3000/api/auth/login", {
->>>>>>> 0b04b3d439771333a8c5319e7a60173ee3d38cbf
+                var res = await fetch("/api/auth/login", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ email, pass })

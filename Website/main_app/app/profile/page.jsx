@@ -7,7 +7,6 @@ export default function ProfilePage() {
     const [text, setText] = useState("");
     const [url, setUrl] = useState("");
     const [audio, setAudio] = useState(null);
-<<<<<<< HEAD
     const [textAudio,setTextAudio] = useState(false);
     const [result, setResult] = useState(null); // <-- New state for backend response
 
@@ -36,8 +35,6 @@ export default function ProfilePage() {
             console.error("Error uploading audio:", error);
         }
     }
-=======
->>>>>>> 0b04b3d439771333a8c5319e7a60173ee3d38cbf
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 text-white flex flex-col items-center p-6">
@@ -51,12 +48,7 @@ export default function ProfilePage() {
                 {/* Text Analysis */}
                 <div
                     onClick={() => setActive("text")}
-<<<<<<< HEAD
                     className={`cursor-pointer p-6 rounded-xl shadow-lg transition transform hover:scale-105 ${active === "text" ? "bg-blue-600" : "bg-gray-700"}`}
-=======
-                    className={`cursor-pointer p-6 rounded-xl shadow-lg transition transform hover:scale-105 ${active === "text" ? "bg-blue-600" : "bg-gray-700"
-                        }`}
->>>>>>> 0b04b3d439771333a8c5319e7a60173ee3d38cbf
                 >
                     <h2 className="text-xl font-semibold mb-2">📝 Phising Text Analysis</h2>
                     <p className="text-gray-300">Analyze written content easily</p>
@@ -65,12 +57,7 @@ export default function ProfilePage() {
                 {/* Audio Analysis */}
                 <div
                     onClick={() => setActive("audio")}
-<<<<<<< HEAD
                     className={`cursor-pointer p-6 rounded-xl shadow-lg transition transform hover:scale-105 ${active === "audio" ? "bg-green-600" : "bg-gray-700"}`}
-=======
-                    className={`cursor-pointer p-6 rounded-xl shadow-lg transition transform hover:scale-105 ${active === "audio" ? "bg-green-600" : "bg-gray-700"
-                        }`}
->>>>>>> 0b04b3d439771333a8c5319e7a60173ee3d38cbf
                 >
                     <h2 className="text-xl font-semibold mb-2">🎧 Ai/Phishing Voice Detector </h2>
                     <p className="text-gray-300">Upload and analyze audio files (.wav/mp3 format)</p>
@@ -79,12 +66,7 @@ export default function ProfilePage() {
                 {/* Website Analysis */}
                 <div
                     onClick={() => setActive("website")}
-<<<<<<< HEAD
                     className={`cursor-pointer p-6 rounded-xl shadow-lg transition transform hover:scale-105 ${active === "website" ? "bg-purple-600" : "bg-gray-700"}`}
-=======
-                    className={`cursor-pointer p-6 rounded-xl shadow-lg transition transform hover:scale-105 ${active === "website" ? "bg-purple-600" : "bg-gray-700"
-                        }`}
->>>>>>> 0b04b3d439771333a8c5319e7a60173ee3d38cbf
                 >
                     <h2 className="text-xl font-semibold mb-2">🌐 Phising Website Analysis</h2>
                     <p className="text-gray-300">Check URLs for insights</p>
@@ -119,11 +101,7 @@ export default function ProfilePage() {
                             onChange={(e) => setAudio(e.target.files[0])}
                             className="p-2 bg-gray-700 rounded border border-gray-600"
                         />
-<<<<<<< HEAD
                         <button onClick={handleAudio} className="bg-green-600 hover:bg-green-700 py-2 rounded font-semibold transition">
-=======
-                        <button className="bg-green-600 hover:bg-green-700 py-2 rounded font-semibold transition">
->>>>>>> 0b04b3d439771333a8c5319e7a60173ee3d38cbf
                             Analyze Audio
                         </button>
                     </div>
@@ -140,12 +118,8 @@ export default function ProfilePage() {
                             className="p-3 rounded bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-purple-500"
                         />
                         <button onClick={() => window.location.href = `http://localhost:5173?url=${encodeURIComponent(url)}`} className="bg-purple-600 hover:bg-purple-700 py-2 rounded font-semibold transition">
-<<<<<<< HEAD
                             {textAudio ? <h1>Analysing the provided audio... </h1> : <h1>Analyze Audio </h1>}
                            
-=======
-                            Analyze Website
->>>>>>> 0b04b3d439771333a8c5319e7a60173ee3d38cbf
                         </button>
                     </div>
                 )}
@@ -156,7 +130,6 @@ export default function ProfilePage() {
                         Select an option above to start analysis
                     </p>
                 )}
-<<<<<<< HEAD
 
                 {/* RESULT BLOCK */}
                 {result && (
@@ -182,8 +155,6 @@ export default function ProfilePage() {
                         </div>
                     </div>
                 )}
-=======
->>>>>>> 0b04b3d439771333a8c5319e7a60173ee3d38cbf
             </div>
         </div>
     );
