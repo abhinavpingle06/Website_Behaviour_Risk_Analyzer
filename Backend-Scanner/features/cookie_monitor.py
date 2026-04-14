@@ -44,5 +44,8 @@ def monitor_cookies(page):
             result["score"] = 60
         elif result["length"] >2:
             result["score"] = 30
+        elif result["length"] >= 1:
+            result["score"] = 10
+        
             
         return result

@@ -64,9 +64,9 @@ async def detect_redirects(response, original_url):
     if len(redirect_chain) > 1:
         tag.append("Multiple redirects")
 
-    if len(redirect_chain) == 0:
+    if len(redirect_chain) <= 1:
         score = 0
-    elif len(redirect_chain) < 2:
+    elif len(redirect_chain) <= 3:
         score = 0.3
     else:
         score = 0.6
