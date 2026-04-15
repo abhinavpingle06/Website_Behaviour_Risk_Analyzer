@@ -28,24 +28,16 @@ def monitor_cookies(page):
 
         page.on("request", handle_request)
 
-        # # ⚠️ Detect JavaScript trying to read cookies
-        # page.add_init_script("""
-        #     const originalCookie = document.__lookupGetter__('cookie');
-        #     Object.defineProperty(document, 'cookie', {
-        #         get: function() {
-        #             console.log("⚠️ JavaScript tried to read cookies");
-        #             return originalCookie.call(document);
-        #         }
-        #     });
-        # """)
-        if result["length"] >10:
-            result["score"] = 100
-        elif result["length"] >5:
-            result["score"] = 60
-        elif result["length"] >2:
-            result["score"] = 30
-        elif result["length"] >= 1:
-            result["score"] = 10
-        
+        def finalize():
+            if result["length"] >10:
+                result["score"] = 100
+            elif result["length"] >5:
+                result["score"] = 60
+            elif result["length"] >2:
+                result["score"] = 30
+            elif result["length"] >= 1:
+                result["score"] = 10
             
-        return result
+            return result
+           
+        return result, finalize

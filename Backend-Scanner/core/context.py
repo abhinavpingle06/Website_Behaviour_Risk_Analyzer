@@ -17,7 +17,7 @@ async def scan_url(url: str):
     try:
         # Setting Listners
         network_data, finalize_network_data = monitor_network(page)
-        cookies_data = monitor_cookies(page)
+        cookies_data, finalize_cookies_data = monitor_cookies(page)
 
         async def handle_route(route, request):
             if request.resource_type in ["image", "media", "font"]:
@@ -38,7 +38,7 @@ async def scan_url(url: str):
         results["content"] = await content_analyzer(page)
         results["network"] = finalize_network_data()
         # results["forms"] = await detect_forms(page, url)
-        results["cookies"] = cookies_data
+        results["cookies"] = finalize_cookies_data()
         
     except Exception as e:
         results["error"] = str(e)
