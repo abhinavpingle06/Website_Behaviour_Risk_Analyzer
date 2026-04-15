@@ -28,24 +28,32 @@ def monitor_network(page):
 
         if is_ip(domain):
             result["ip_requests"].append(request_url)
+            result["ip_count"] += 1
 
-        if domain != original_domain:
-            result["external_requests"].append(request_url)
+        # if domain != original_domain:
+        #     result["external_requests"].append(request_url)
 
     page.on("request", handle_request)
     
-    score = 0
-    if result["post_requests"] >= 1:
-        score += 20
-    if len(result["ip_requests"]) >= 1:
-        score += 50
-    ext_count = len(result["external_requests"])
-    if ext_count >= 10:
-        score += 30
-    elif ext_count >= 5:
-        score += 20
-    else:
-        score += 10     
+    def finalize():
+        score = 0
+        if result["post_requests"] < 1:
+            score += 0
+        elif result["post_requests"] <= 3:
+            score += 40
+        else: 
+            score += 50
+
+        if len(result["ip_requests"]) >= 1:
+            score += 50
+    # ext_count = len(result["external_requests"])
+    # if ext_count >= 10:
+    #     score += 30
+    # elif ext_count >= 5:
+    #     score += 20
+    # else:
+    #     score += 10     
+        result["score"] = score
+        return result
     
-    result["score"] = score
-    return result
+    return result, finalize

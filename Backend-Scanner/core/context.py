@@ -16,7 +16,7 @@ async def scan_url(url: str):
 
     try:
         # Setting Listners
-        network_data = monitor_network(page)
+        network_data, finalize_network_data = monitor_network(page)
         cookies_data = monitor_cookies(page)
 
         async def handle_route(route, request):
@@ -36,7 +36,7 @@ async def scan_url(url: str):
         # Run feature 
         results["redirects"] =await detect_redirects(response, url)
         results["content"] = await content_analyzer(page)
-        results["network"] = network_data
+        results["network"] = finalize_network_data()
         # results["forms"] = await detect_forms(page, url)
         results["cookies"] = cookies_data
         
