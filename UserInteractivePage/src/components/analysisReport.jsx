@@ -1,8 +1,22 @@
-import { X, Shield, AlertTriangle, CheckCircle2 } from "lucide-react";
+import { X, Shield, AlertTriangle, CheckCircle2, Globe2Icon } from "lucide-react";
+// import { botAnalysis } from "../lib/bot";
+// import { useEffect } from "react";
 
 export default function AnalysisReport({ isOpen, onClose, data }) {
     if (!isOpen) return null;
+    // const [aboutWebsite, setAboutWebsite] = useState("Loading analysis...");
 
+    // useEffect(async ()=>{
+    //     const response = await fetch("http://127.0.0.1:8000/chat", {
+    //         method: "POST",
+    //         headers: { "Content-Type": "application/json" },
+    //         body: JSON.stringify({ scanResult })
+    //     });
+
+    //     const data = await response.json();
+    //     return data.text;
+    // })
+    
     const result = data?.result || {};
 
     const contentRisk = Math.round((result?.content?.risk ?? 0) * 100);
@@ -33,15 +47,15 @@ export default function AnalysisReport({ isOpen, onClose, data }) {
                 {/* Header */}
                 <div className="flex justify-between items-center p-5 border-b">
                     <div className="flex items-center gap-3">
-                        <Shield className="w-6 h-6 text-blue-500" />
-                        <h2 className="text-xl font-bold">Full Security Analysis</h2>
+                        <Shield className="w-9 h-9 text-blue-500 text-center" />
+                        <h2 className="text-4xl font-bold">Website Analysis Report</h2>
                     </div>
 
                     <button
                         onClick={onClose}
-                        className="p-2 rounded-lg hover:bg-gray-100"
+                        className="p-2 rounded-lg text-red-500 bg-red-100 hover:bg-red-300"
                     >
-                        <X />
+                        <X size={30}/>
                     </button>
                 </div>
 
@@ -49,19 +63,20 @@ export default function AnalysisReport({ isOpen, onClose, data }) {
                 <div className="flex-1 overflow-y-auto p-6 space-y-6">
 
                     {/* Overall */}
-                    <div className="bg-gray-50 rounded-xl p-5 flex justify-between items-center">
-                        <div>
-                            <p className="text-sm text-gray-500">Overall Risk</p>
-                            <p className={`text-2xl font-bold ${risk.color}`}>
-                                {risk.text}
-                            </p>
+                    <div className="bg-gray-50 rounded-xl p-5 flex flex-col justify-between ">
+                        <div className="flex justify-between">
+                            <p className="text-2xl flex gap-2 font-bold text-black"><Globe2Icon className="h-8 w-8"/> About Website</p>
+                            {overall >= 0 ? (
+                            <AlertTriangle className="text-yellow-500 w-10 h-10 pb-2 animate-pulse" />
+                        ) : (
+                            <CheckCircle2 className="text-green-500 w-8 h-8 " />
+                        )}
+                        </div>
+                        <div className="border-2">
+                            shbasifhv
                         </div>
 
-                        {overall >= 75 ? (
-                            <AlertTriangle className="text-red-500 w-8 h-8" />
-                        ) : (
-                            <CheckCircle2 className="text-green-500 w-8 h-8" />
-                        )}
+                        
                     </div>
 
                     {/* Breakdown */}
