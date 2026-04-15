@@ -3,6 +3,7 @@ import ProgressCircle from "./Reusables/radial_progress";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import ReportModal from './Report';
+import AnalysisReport from './analysisReport';
 import { 
   ArrowUpRight, 
   Shield, 
@@ -49,11 +50,13 @@ export default function SecurityDashboard() {
   const contentRisk   = Math.round((scanResult?.result?.content?.risk ?? 0) * 100);
   const redirectScore = scanResult?.result?.redirects?.score ?? 0;
   const networkScore  = scanResult?.result?.network?.score  ?? 0;
-  const cookieScore   = scanResult?.result?.cookies?.length > 0 ? 70 : 10;
+  const cookieScore   = scanResult?.result?.cookies?.score ?? 0 ;
 
   // Overall score: weighted average of sub-scores
-  const overallScore  = Math.round((contentRisk * 0.4) + (redirectScore * 0.2) + (networkScore * 0.3) + (cookieScore * 0.4));
-
+  let overallScore  = Math.round((contentRisk * 0.3) + (redirectScore * 0.4) + (networkScore * 0.3) + (cookieScore * 0.4));
+  if (redirectScore >= 80) {
+    overallScore = 95; // force high risk
+  }
   const getRiskLevel = (value) => {
     if (value >= 90) return { level: 'Critical Risk',  color: '#FF5A5F', badge: 'critical' };
     if (value >= 75) return { level: 'High Risk',      color: '#F4B740', badge: 'high'     };
@@ -69,6 +72,11 @@ export default function SecurityDashboard() {
     if (value >= 45) return "Some security concerns identified. Review the details before continuing.";
     return "No major threats detected. This URL appears to be safe.";
   };
+
+
+  const handelReport = async () => {
+    setReportOpen(true);
+  }
 
   if (isLoading) {
     return (
@@ -188,16 +196,16 @@ export default function SecurityDashboard() {
                 
                 <div className="grid grid-cols-2 gap-3">
                   <Button 
-                    
+                    onClick={handelReport}
                     variant="outline"
-                    className="h-12 text-medium font-semibold border-red-200 text-white bg-[#FF5A5F] hover:bg-[#FF5A5F]/90 hover:text-white rounded-xl transition-all duration-300"
+                    className="h-12 text-lg font-semibold border-red-200 text-white bg-[#FF5A5F] hover:bg-[#FF5A5F]/90 hover:text-white rounded-xl transition-all duration-300"
                   >
-                    Report 
+                    Get analysis report 
                   </Button>
                   <Button
                     onClick={() => window.history.back()}
                     variant="outline"
-                    className="h-12 text-sm font-semibold border-[#4F8CFF]/30 text-[#4F8CFF] hover:bg-blue-50 rounded-xl transition-all duration-300 bg-white/60 backdrop-blur"
+                    className="h-12 text-medium font-semibold border-[#4F8CFF]/30 text-[#4F8CFF] hover:bg-blue-50 rounded-xl transition-all duration-300 bg-white/60 backdrop-blur"
                   >
                     Take Me Back
                   </Button>
@@ -280,7 +288,7 @@ export default function SecurityDashboard() {
         </div>
       </div>
 
-      <ReportModal isOpen={reportOpen} onClose={() => setReportOpen(false)} />
+      <AnalysisReport isOpen={reportOpen} data={scanResult} onClose={() => setReportOpen(false)} />
     </div>
   );
 }
@@ -307,14 +315,14 @@ function AnalysisCard({ icon, title, value, tags, description, onViewReport }) {
 
       <div className="flex items-start gap-4 mb-4">
         <div className="shrink-0">
-          <ProgressCircle WnH={"w-20 h-20"} value={value} />
+          <ProgressCircle WnH={"w-25 h-25"} value={value} />
         </div>
         <div className="flex flex-wrap gap-2 pt-1">
           {(tags ?? []).slice(0, 3).map((tag, idx) => (
             <Badge 
               key={idx}
               variant="secondary" 
-              className="text-xs px-3 py-1 bg-white/60 border border-[#98A2B3]/20 text-[#5F6C7B] font-medium rounded-full"
+              className="text-[15px] px-3 py-1 bg-white/20 border border-[#98A2B3]/20 text-[#5F6C7B] font-medium rounded-full"
             >
               {tag}
             </Badge>
@@ -322,15 +330,15 @@ function AnalysisCard({ icon, title, value, tags, description, onViewReport }) {
         </div>
       </div>
 
-      <p className="text-sm text-[#5F6C7B] leading-relaxed mb-4">{description}</p>
+      <p className="text-medium text-red-700 leading-relaxed mb-4">{description}</p>
 
-      <button
+      {/* <button
         onClick={onViewReport}
         className="text-sm font-semibold text-[#4F8CFF] hover:text-[#3D7AE6] transition-colors duration-200 flex items-center gap-1 group-hover:gap-2"
       >
         View Full Report
         <ArrowUpRight className="w-4 h-4 transition-all duration-200" />
-      </button>
+      </button> */}
     </div>
   );
 }

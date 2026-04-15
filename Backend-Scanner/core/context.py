@@ -1,6 +1,6 @@
 # Create isolated context
 # Assigned - Abhinav
-
+import asyncio
 from .browser import launch_browser
 from features.redirect_detector import detect_redirects
 from features.network_monitor import monitor_network
@@ -38,6 +38,7 @@ async def scan_url(url: str):
         results["content"] = await content_analyzer(page)
         results["network"] = finalize_network_data()
         # results["forms"] = await detect_forms(page, url)
+        await asyncio.sleep(3)
         results["cookies"] = finalize_cookies_data()
         
     except Exception as e:

@@ -40,7 +40,7 @@ def monitor_network(page):
         if result["post_requests"] < 1:
             score += 0
         elif result["post_requests"] <= 3:
-            score += 40
+            score += 30
         else: 
             score += 50
 
