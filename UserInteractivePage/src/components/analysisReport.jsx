@@ -7,7 +7,7 @@ export default function AnalysisReport({ isOpen, onClose, data }) {
     // const [aboutWebsite, setAboutWebsite] = useState("Loading analysis...");
 
     // useEffect(async ()=>{
-    //     const response = await fetch("http://127.0.0.1:8000/chat", {
+    //     const response = await fetch("http://127.0.0.1:8000/bot", {
     //         method: "POST",
     //         headers: { "Content-Type": "application/json" },
     //         body: JSON.stringify({ scanResult })
