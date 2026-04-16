@@ -1,21 +1,39 @@
 import { X, Shield, AlertTriangle, CheckCircle2, Globe2Icon } from "lucide-react";
-// import { botAnalysis } from "../lib/bot";
-// import { useEffect } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
+import ReactMarkdown from "react-markdown";
+import { useEffect } from "react";
+import { useState } from "react";
 
 export default function AnalysisReport({ isOpen, onClose, data }) {
     if (!isOpen) return null;
-    // const [aboutWebsite, setAboutWebsite] = useState("Loading analysis...");
+    const [bot, setBot] = useState(true);
+    const [reply,setReply] = useState("")
 
-    // useEffect(async ()=>{
-    //     const response = await fetch("http://127.0.0.1:8000/bot", {
-    //         method: "POST",
-    //         headers: { "Content-Type": "application/json" },
-    //         body: JSON.stringify({ scanResult })
-    //     });
+    useEffect(() => {
+        const fetchBot = async () => {
+            setBot(true);
+            setReply("");
 
-    //     const data = await response.json();
-    //     return data.text;
-    // })
+            try {
+                const response = await fetch("http://127.0.0.1:8000/bot", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ result: data?.result })
+                });
+
+                const res = await response.json();
+                setReply(res.reply);
+            } catch (err) {
+                console.error(err);
+            } finally {
+                setBot(false);
+            }
+        };
+
+        if (isOpen && data) {
+            fetchBot();
+        }
+    }, [isOpen, data]);
     
     const result = data?.result || {};
 
@@ -48,7 +66,7 @@ export default function AnalysisReport({ isOpen, onClose, data }) {
                 <div className="flex justify-between items-center p-5 border-b">
                     <div className="flex items-center gap-3">
                         <Shield className="w-9 h-9 text-blue-500 text-center" />
-                        <h2 className="text-4xl font-bold">Website Analysis Report</h2>
+                        <h2 className="text-4xl text-blue-500 font-bold">Website Analysis Report</h2>
                     </div>
 
                     <button
@@ -65,22 +83,73 @@ export default function AnalysisReport({ isOpen, onClose, data }) {
                     {/* Overall */}
                     <div className="bg-gray-50 rounded-xl p-5 flex flex-col justify-between ">
                         <div className="flex justify-between">
-                            <p className="text-2xl flex gap-2 font-bold text-black"><Globe2Icon className="h-8 w-8"/> About Website</p>
-                            {overall >= 0 ? (
+                            <p className="text-3xl flex gap-2 font-bold text-black"><Globe2Icon className="h-10 w-10"/> About Website</p>
+                            {bot ? (
                             <AlertTriangle className="text-yellow-500 w-10 h-10 pb-2 animate-pulse" />
                         ) : (
                             <CheckCircle2 className="text-green-500 w-8 h-8 " />
                         )}
                         </div>
-                        <div className="border-2">
-                            shbasifhv
+                        { bot ? ( 
+                            <div className="flex flex-col gap-2 pt-4">
+                                <Skeleton className="h-4 w-full" />
+                                <Skeleton className="h-4 w-[90%]" />
+                                <Skeleton className="h-4 w-[80%]" />
+                                <Skeleton className="h-4 w-[70%]" />
+                                <Skeleton className="h-4 w-[60%]" />
+                            </div>
+                        ) : (
+                                <div className="prose prose-sm md:prose-base max-w-none 
+                prose-headings:text-black 
+                prose-p:text-gray-700 
+                prose-li:text-gray-700 
+                pt-4 px-4 rounded-lg">
+                                    <ReactMarkdown
+    components={{
+      h3: ({ children }) => (
+        <h3 className="text-xl font-bold mt-6 mb-2 text-blue-900/80 border-b pb-2">
+          {children}
+        </h3>
+      ),
+      h4: ({ children }) => (
+        <h4 className="text-md font-semibold mt-4 mb-1 text-black">
+          {children}
+        </h4>
+      ),
+      p: ({ children }) => (
+        <p className="text-black font-semibold leading-relaxed mb-3">
+          {children}
+        </p>
+      ),
+      ul: ({ children }) => (
+        <ul className="list-disc pl-5 space-y-1 mb-3">
+          {children}
+        </ul>
+      ),
+      li: ({ children }) => (
+        <li className="text-red-600">
+          {children}
+        </li>
+      ),
+      strong: ({ children }) => (
+        <span className="font-semibold text-black">
+          {children}
+        </span>
+      ),
+      hr: () => (
+        <div className="border-t my-4" />
+      ),
+    }}
+  >
+    {reply}
+  </ReactMarkdown>
                         </div>
-
-                        
+                        )
+                    }
                     </div>
 
                     {/* Breakdown */}
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 border-2 rounded-2xl p-2">
                         <Card title="Content" value={contentRisk} />
                         <Card title="Redirects" value={redirectScore} />
                         <Card title="Network" value={networkScore} />
