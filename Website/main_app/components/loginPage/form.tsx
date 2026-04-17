@@ -56,10 +56,10 @@ export default function Login() {
 
     return (
         <form onSubmit={HandelonVerification}
-        className="flex items-center justify-center bg-white/10 backdrop-blur-md shadow-lg rounded-2xl p-10">
+        className="flex items-center justify-center bg-white/10 backdrop-blur-md shadow-2xl rounded-2xl p-10">
             <div className="w-full max-w-lg space-y-2 ">
-                <h1 className="text-4xl font-semibold font-sm text-center -translate-y-2">Logged Into Account</h1>
-                <div className="text-sm font-medium text-gray-300 space-y-2">
+                <h1 className="text-4xl font-bold rounded-2xl p-4 font-sm text-center -translate-y-2">Log Into Account</h1>
+                <div className="text-medium font-medium text-black space-y-2">
                     <p>Welcome Back!!!</p> 
                     <p>New here? <span className="font-bold text-center items-center"><Link href={'/signup'} className="hover:underline">Create An Account</Link></span></p> 
                 </div>
@@ -73,7 +73,7 @@ export default function Login() {
                             placeholder="you@example.com"
                             style={{
                                 background: filled.length ? 'white' : "transparent",
-                                color: filled.length ? 'black' : "white"
+                                color: filled.length ? 'black' : "black"
                             }}
                             onChange={Handelvalue}
                         />
@@ -89,7 +89,7 @@ export default function Login() {
                                 placeholder="••••••••"
                                 style={{
                                     background: pass.length ? 'white' : "transparent",
-                                    color: pass.length ? 'black' : "white"
+                                    color: pass.length ? 'black' : "black"
                                 }}
                                 onChange={Handelpass}
                             />
@@ -106,13 +106,13 @@ export default function Login() {
                         }
 
                         {
-                            isPending && <p className="text-white/30 animate-pulse">Processing....</p>
+                            isPending && <p className="text-blue-900 text-sm font-medium animate-pulse">Processing....</p>
 
                         }
                     </div>
                 </div>
 
-                <Button className="w-full border" variant={"ghost"} type="submit" >Sign in</Button>
+                <Button className="w-full border border-blue-950 text-lg text-white bg-blue-700 hover:bg-blue-500" variant={"ghost"} type="submit" >Log in</Button>
             </div>
         </form>
     )

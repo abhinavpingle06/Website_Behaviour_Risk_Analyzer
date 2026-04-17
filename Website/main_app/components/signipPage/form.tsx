@@ -10,10 +10,11 @@ import { Verify } from "./verification"
 
 export default function SignupForm() {
     const [showPass , setShowPass] = useState(false)
+    const [PopUp, setPopUp] = useState(false)
     const [filled , setFilled] = useState('')
     const [pass , setPass] =useState("")
     const [name , setname] = useState("")
-    const [isvalid , setIsvalid] = useState(true)
+    const [isvalid , setIsvalid] = useState<boolean|string>("")
     const [validmsg , setValidmsg] = useState("")
     const [isPending , startTransition] = useTransition()
 
@@ -45,11 +46,12 @@ export default function SignupForm() {
     }
 
     return (
-        <div className="flex items-center justify-center bg-white/10 backdrop-blur-md shadow-lg rounded-2xl p-10">
+        <div className="flex items-center justify-center bg-white/10 backdrop-blur-md shadow-2xl rounded-2xl p-10">
+            
             <form onSubmit={HandelonSubmit}>
-                <div className="w-full max-w-lg space-y-3 ">
-                <h1 className="text-4xl font-semibold font-sm text-center -translate-y-2">Create Your Account</h1>
-                <p className="text-sm font-medium text-gray-300 pb-4">Already member of our community? <span className="font-bold text-center items-center"><Link href={'/login'} className="hover:underline">Login here.</Link> </span></p>
+                <div className="w-full max-w-lg space-y-3 text-black">
+                <h1 className="text-4xl font-bold font-sm text-center -translate-y-2">Create Your Account</h1>
+                <p className="text-medium font-medium text-black pb-4">Already member of our community? <span className="font-bold text-center items-center"><Link href={'/login'} className="hover:underline">Login here.</Link> </span></p>
                 <div className="space-y-5 pt-1">
                         {/* Name */}
                         <div className="space-y-2 relative">
@@ -60,7 +62,7 @@ export default function SignupForm() {
                                 placeholder="Bob"
                                 style={{
                                     background: name.length ? 'white' : "transparent",
-                                    color: name.length ? 'black' : "white"
+                                    color: name.length ? 'black' : "black"
                                 }}
                                 onChange={Handelname}
                             />
@@ -74,7 +76,7 @@ export default function SignupForm() {
                             placeholder="you@example.com"
                             style={{
                                 background: filled.length ? 'white' : "transparent"  ,
-                                color: filled.length ? 'black' : "white"
+                                color: filled.length ? 'black' : "black"
                             }}
                             onChange={Handelvalue}  
                         />
@@ -90,7 +92,7 @@ export default function SignupForm() {
                                 placeholder="••••••••"
                                 style={{
                                     background: pass.length ? 'white' : "transparent",
-                                    color: pass.length ? 'black' : "white"
+                                    color: pass.length ? 'black' : "black"
                                 }}
                                 onChange={Handelpass}
                             />
@@ -107,12 +109,13 @@ export default function SignupForm() {
                     }
                     
                     {
-                        isPending && <p className="text-white/30 animate-pulse">Processing....</p>
+                        isPending && <p className="text-blue-900 text-sm font-medium animate-pulse">Processing....</p> ||
+                        isvalid && <p className=" text-green-500 text-lg font-medium"> {validmsg} </p>
                         
                     }   
                     </div>
                 </div>
-                <Button className="w-full border" variant={"ghost"} type="submit" >Sign in</Button>
+                    <Button className="w-full border border-blue-950 text-lg text-white bg-blue-700 hover:bg-blue-500" variant={"ghost"} type="submit" >Sign in</Button>
             </div>
             </form>
         </div>
