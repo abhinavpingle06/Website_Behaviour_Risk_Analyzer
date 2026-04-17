@@ -29,6 +29,9 @@ class ScanRequest(BaseModel):
 class BotRequest(BaseModel):
     result: dict
 
+class TextRequest(BaseModel):
+    content: str
+
 # CORS (React frontend support)
 origins = [
     "http://localhost:3000",
@@ -114,6 +117,35 @@ def bot(req:BotRequest):
                                     )
 
     return {"reply": response.text}
+
+@app.post("/text")
+async def text(request:TextRequest):
+    content_data = request.content
+    prompt = f'''You are an expert Phishing content analyst trained to detect whether a piece of text is scammy/phishing.
+
+Your task is to carefully analyze the provided text and give a detailed evaluation.
+
+Instructions:
+1. Examine writing style, tone, structure, repetition, and predictability.
+2. Look for signs of phishing content such as:
+3. Also consider human-like traits.
+4.Tell and analyse which category does this fall
+
+Output format:
+- Verdict: (Phishing or not)
+- Confidence Score: (0–100%)
+- Key Indicators: (bullet points explaining why)
+- Detailed Feedback: (clear explanation of reasoning)
+- Send in Markdown Format so that React react-markdown can be used to make the recive text displayed in readable way
+
+Text to analyze:{content_data}
+'''
+    response = model.generate_content(prompt,
+                                      generation_config={
+                                        "temperature": 0.2,
+                                        }
+                                    )
+    return {"reply":response.text}
 
 @app.post("/scan")
 async def scan(request: ScanRequest):

@@ -1,11 +1,13 @@
 "use client";
-
-import { useState } from "react";
+import ReactMarkdown from "react-markdown"
+import { useState, useTransition } from "react";
 
 export default function ProfilePage() {
     const [active, setActive] = useState(null);
     const [text, setText] = useState("");
+    const [loading, setLoading] = useState(false)
     const [url, setUrl] = useState("");
+    const [reply,setReply] = useState("");
     const [audio, setAudio] = useState(null);
     const [textAudio,setTextAudio] = useState(false);
     const [result, setResult] = useState(null); // <-- New state for backend response
@@ -36,11 +38,31 @@ export default function ProfilePage() {
         }
     }
 
+    const handelText = async () => {
+        setLoading(true)
+        try {
+            const res = await fetch("http://127.0.0.1:8000/text", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ content: text })
+            })
+
+            const data = await res.json()
+            setReply(data.reply)
+        } catch (err) {
+            console.error(err)
+        } finally {
+            setLoading(false)
+        }
+    }
+
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 text-white flex flex-col items-center p-6">
 
             {/* Heading */}
-            <h1 className="text-4xl font-bold mb-8">Analysis Dashboard</h1>
+            <h1 className="text-6xl font-bold my-12 mb-16">Analysis Dashboard</h1>
 
             {/* Cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10 w-full max-w-5xl">
@@ -74,9 +96,10 @@ export default function ProfilePage() {
             </div>
 
             {/* Dynamic Input Section */}
-            <div className="w-full max-w-xl bg-gray-800 p-6 rounded-xl shadow-lg">
+            <div className="w-full max-w-3xl bg-gray-800 p-6 rounded-xl shadow-lg">
 
                 {/* TEXT */}
+                <>
                 {active === "text" && (
                     <div className="flex flex-col gap-4">
                         <textarea
@@ -86,11 +109,20 @@ export default function ProfilePage() {
                             className="p-3 rounded bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             rows={5}
                         />
-                        <button className="bg-blue-600 hover:bg-blue-700 py-2 rounded font-semibold transition">
-                            Analyze Text
+                        <button onClick={handelText} className="bg-blue-600 hover:bg-blue-700 py-2 rounded font-semibold transition">
+                            {loading ? "Analyzing..." : "Analyze Text"}
                         </button>
                     </div>
                 )}
+                {reply !== "" && active == "text" && (
+                        <div className="p-4 mt-4 bg-gray-700 rounded-lg border border-gray-600 prose prose-invert max-w-none">
+                            <ReactMarkdown>
+                                {reply}
+                            </ReactMarkdown>
+                        </div>
+                )}
+                </>
+                
 
                 {/* AUDIO */}
                 {active === "audio" && (
