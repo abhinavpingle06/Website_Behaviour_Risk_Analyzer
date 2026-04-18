@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+docker
+playwright
+pydantic
+scikit-learn
+numpy
+google-generativeai

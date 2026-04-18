@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+Audio_detection/venv/
+Backend-Scanner/venv/
