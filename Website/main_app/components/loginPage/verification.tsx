@@ -5,11 +5,7 @@ const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 export async function Verify(email: string,password: string) {
 
-<<<<<<< HEAD
     const res = await fetch("http://localhost:3000/api/auth/login" , {
-=======
-    const res = await fetch("http://127.0.0.1:3000/api/auth/login" , {
->>>>>>> 0b04b3d439771333a8c5319e7a60173ee3d38cbf
         method:"POST",
         headers:{"Content-Type":"application/json"} , 
         body:JSON.stringify({email , password})

@@ -1,15 +1,11 @@
-"use server"
-import jwt, { JwtPayload } from "jsonwebtoken";
-import dotenv from 'dotenv';
+import { jwtVerify } from 'jose';
 
-
-export async function VerifyToken(token:any){
-  
+export async function verifyToken(token: string) {
     try {
-        const decoded = jwt.verify(token , "Abhinav")
-        return decoded as {email: string}
-    } catch (error) {
-        return {email:"false"}
+        const secret = new TextEncoder().encode(process.env.JWT_SECRET);
+        const { payload } = await jwtVerify(token, secret);
+        return payload;
+    } catch (err) {
+        return null;
     }
-    
 }

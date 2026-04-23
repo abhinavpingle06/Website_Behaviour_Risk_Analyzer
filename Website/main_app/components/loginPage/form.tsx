@@ -57,7 +57,7 @@ export default function Login() {
     return (
         <form onSubmit={HandelonVerification}
         className="flex items-center justify-center bg-white/10 backdrop-blur-md shadow-2xl rounded-2xl p-10">
-            <div className="w-full max-w-lg space-y-2 ">
+            <div className="w-full max-w-lg space-y-2  ">
                 <h1 className="text-4xl font-bold rounded-2xl p-4 font-sm text-center -translate-y-2">Log Into Account</h1>
                 <div className="text-medium font-medium text-black space-y-2">
                     <p>Welcome Back!!!</p> 

@@ -36,7 +36,7 @@ export async function POST(req: Request) {
 
     // Set cookie via NextResponse headers
     response.cookies.set({
-        name: "iBuildThis",
+        name: "secure360",
         value: token,
         httpOnly: true,
         sameSite: "lax",

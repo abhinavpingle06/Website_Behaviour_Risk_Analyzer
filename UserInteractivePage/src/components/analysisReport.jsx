@@ -149,10 +149,10 @@ export default function AnalysisReport({ isOpen, onClose, data }) {
                     </div>
 
                     {/* Breakdown */}
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 border-2 rounded-2xl p-2">
-                        <Card title="Content" value={contentRisk} />
-                        <Card title="Redirects" value={redirectScore} />
-                        <Card title="Network" value={networkScore} />
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4 border-2 rounded-2xl p-2">
+                        {/* <Card title="Content" value={contentRisk} /> */}
+                        <Card title="Redirects" value={result.redirects.redirect_chain.length} />
+                        <Card title="Network" value={result.network.post_requests} />
                         <Card title="Cookies" value={cookieScore} />
                     </div>
 
