@@ -122,11 +122,9 @@ export default function Home() {
                 </svg>
               </div>
               <h3 className="text-2xl font-semibold text-gray-900 mb-3">
-                Fake AI Voice Detection
+                Web Activity Analysis
               </h3>
               <p className="text-gray-600">
-                Detect deepfake and AI-generated voices to verify authenticity
-                and prevent voice-based fraud.
               </p>
             </div>
           </div>
