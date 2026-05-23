@@ -2,7 +2,6 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import google.generativeai as genai
-
 import docker
 import json
 import uuid
@@ -11,6 +10,7 @@ import asyncio
 asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 from dotenv import load_dotenv
 import os
+from features.text_analyzer.text_fraud_model import analyze_text
 
 load_dotenv()
 api_key_google = os.getenv("GOOGLE_API_KEY_REPORT")
@@ -77,31 +77,32 @@ def bot(req:BotRequest):
 @app.post("/text")
 async def text(request:TextRequest):
     content_data = request.content
+    analysis_result = await analyze_text(content_data)
     prompt = f'''You are an expert Phishing content analyst trained to detect whether a piece of text is scammy/phishing.
 
-Your task is to carefully analyze the provided text and give a detailed evaluation.
+I've already made an analysis model which provides result of the text with label like reason and category & percentage.
+Your task is to carefully analyze the provided text and give a detailed evaluation of why t.
 
 Instructions:
 1. Examine writing style, tone, structure, repetition, and predictability.
 2. Look for signs of phishing content such as:
 3. Also consider human-like traits.
-4.Tell and analyse which category does this fall
+4.Tell and analyse why my analysis model output such results.
 
 Output format:
-- Verdict: (Phishing or not)
-- Confidence Score: (0–100%)
 - Key Indicators: (bullet points explaining why)
 - Detailed Feedback: (clear explanation of reasoning)
 - Send in Markdown Format so that React react-markdown can be used to make the recive text displayed in readable way
 
 Text to analyze:{content_data}
+Analysis Model Result : {analysis_result}
 '''
     response = model.generate_content(prompt,
                                       generation_config={
                                         "temperature": 0.2,
                                         }
                                     )
-    return {"reply":response.text}
+    return {"model_result":analysis_result, "reply":response.text}
 
 @app.post("/scan")
 async def scan(request: ScanRequest):

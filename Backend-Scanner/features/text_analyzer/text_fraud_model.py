@@ -2,10 +2,6 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 import re
 
-# ===============================
-# TRAINING DATA
-# ===============================
-
 fraud_samples = [
     # Credential theft
     "verify your account immediately",
@@ -127,10 +123,6 @@ X = vectorizer.fit_transform(texts)
 
 model = LogisticRegression()
 model.fit(X, labels)
-
-# ===============================
-# FRAUD PATTERN LIBRARIES
-# ===============================
 
 CREDENTIAL_TERMS = [
     "password", "otp", "pin", "verify account",
