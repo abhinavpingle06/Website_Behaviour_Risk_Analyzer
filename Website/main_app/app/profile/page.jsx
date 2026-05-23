@@ -12,6 +12,7 @@ export default function ProfilePage() {
     const [audio, setAudio] = useState(null);
     const [textAudio,setTextAudio] = useState(false);
     const [result, setResult] = useState(null); // <-- New state for backend response
+    const [error , setError] = useState(null)
 
     const handleAudio = async () => {
         if (!audio) {
@@ -34,7 +35,7 @@ export default function ProfilePage() {
 
             const data = await response.json();
             console.log(data);
-            setResult(data); // <-- Set response to display
+            setResult(data); 
         } catch (error) {
             console.error("Error uploading audio:", error);
         } finally {
@@ -61,30 +62,23 @@ export default function ProfilePage() {
             setLoading(false)
         }
     }
-    
-    const handelSignOut = async () => {
-        await fetch("/api/auth/token", {
-            method:"POST"
-        })
-        window.location.href = "/"
-    }
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-900 to-indigo-800 text-white flex flex-col items-center p-6">
             <div className="flex justify-end w-full">
-                <Button className="bg-red-600 hover:bg-red-500" onClick={handelSignOut}>Signout</Button>
+                <Button className="bg-indigo-600 hover:bg-blue-500 text-white font-bold text-lg" onClick={() => window.location.href = "/"}>Back</Button>
             </div>
-            {/* Heading */}
-            <h1 className="text-6xl font-bold my-8 mb-10">Analysis Dashboard</h1>
-            <div className="border-2 w-2xl mb-10"></div>
+            
+            <h1 className="text-4xl text-gray-100 font-bold mb-5">Analysis Dashboard</h1>
+            <div className="border border-indigo-600 w-2xl mb-10"></div>
 
             {/* Cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10 w-full max-w-5xl">
 
                 {/* Text Analysis */}
                 <div
-                    onClick={() => setActive("text")}
-                    className={`cursor-pointer p-6 rounded-xl shadow-lg transition transform hover:scale-105 ${active === "text" ? "bg-blue-600 border border-blue-950" : "bg-gray-800"}`}
+                    onClick={() => active == "text" ? setActive(null) : setActive("text") }
+                    className={`cursor-pointer p-6 rounded-xl shadow-lg transition border transform bg-[#141a3e] hover:border-blue-300 ${active === "text" ? "border-blue-500 scale-98" : "border-[#141a3e]"}`}
                 >
                     <h2 className="text-xl flex font-semibold mb-2">🕵🏻‍♂️ Phising Text Analysis</h2>
                     <p className="text-gray-300">Analyze written content easily</p>
@@ -92,8 +86,8 @@ export default function ProfilePage() {
 
                 {/* Audio Analysis */}
                 <div
-                    onClick={() => setActive("audio")}
-                    className={`cursor-pointer p-6 rounded-xl shadow-lg transition transform hover:scale-105 ${active === "audio" ? "bg-green-600" : "bg-gray-800"}`}
+                    onClick={() => active == "audio" ? setActive(null) : setActive("audio") }
+                    className={`cursor-pointer p-6 rounded-xl shadow-lg transition border transform bg-[#141a3e] hover:border-blue-300 ${active === "audio" ? "border-blue-500 scale-98" : "border-[#141a3e]"}`}
                 >
                     <h2 className="text-xl font-semibold mb-2">🎧 Ai/Phishing Voice Detector </h2>
                     <p className="text-gray-300">Upload and analyze audio files (.wav/mp3 format)</p>
@@ -101,8 +95,8 @@ export default function ProfilePage() {
 
                 {/* Website Analysis */}
                 <div
-                    onClick={() => setActive("website")}
-                    className={`cursor-pointer p-6 rounded-xl shadow-lg transition transform hover:scale-105 ${active === "website" ? "bg-purple-600" : "bg-gray-800"}`}
+                    onClick={() => active == "website" ? setActive(null)  : setActive("website") }
+                    className={`cursor-pointer p-6 rounded-xl shadow-lg transition border transform bg-[#141a3e] hover:border-blue-300 ${active === "website" ? "border-blue-500 scale-98" : "border-[#141a3e]"}`}
                 >
                     <h2 className="text-xl font-semibold mb-2">🌐 Phising Website Analysis</h2>
                     <p className="text-gray-300">Check URLs for insights</p>
@@ -110,22 +104,25 @@ export default function ProfilePage() {
             </div>
 
             {/* Dynamic Input Section */}
-            <div className="w-full max-w-6xl bg-gray-800 p-6 rounded-xl shadow-lg">
+            <div className="w-full max-w-6xl p-6 rounded-xl shadow-2xl">
 
                 {/* TEXT */}
                 <>
                 {active === "text" && (
-                    <div className="flex flex-col gap-4">
+                    <div className="flex flex-col justify-center gap-4">
                         <textarea
                             placeholder="Enter text to analyze..."
                             value={text}
                             onChange={(e) => setText(e.target.value)}
-                            className="p-3 rounded bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="p-3 rounded bg-blue-700/10 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             rows={5}
                         />
-                        <button onClick={handelText} className="bg-blue-600 hover:bg-blue-700 py-2 rounded font-semibold transition">
-                            {loading ? <h1 className="animation animate-pulse">Analyzing...</h1> : "Analyze Text"}
-                        </button>
+                        <div className="flex justify-center">
+                                <button onClick={handelText} className="bg-blue-600 rounded-xl hover:bg-blue-700 py-2 px-10 flex justify-center font-semibold transition">
+                                    {loading ? <h1 className="animation animate-pulse">Analyzing...</h1> : "Analyze Text"}
+                                </button>
+                        </div>
+                       
                     </div>
                 )}
                 {reply !== "" && active == "text" && (
