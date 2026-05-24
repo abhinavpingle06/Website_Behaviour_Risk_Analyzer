@@ -6,6 +6,38 @@
 
 With real-time analysis capabilities, the project demonstrates how artificial intelligence can be leveraged to improve online security, reduce phishing risks, and enhance user awareness in an increasingly AI-driven digital world.
 
+## Project Structure 
+```bash
+Website_Behaviour_Risk_Analyzer/
+│
+├── Backend-Scanner/         # Backend APIs and Scanning Engine
+├── Frontend-Scanner/        # Scanner Frontend Dashboard
+├── website/main_app         # Landing Webiste to Access Features
+├── chrome-extension         # Chrome Extension Codes
+└── README.md
+```
+
+## Tech Stack
+### Frontend
+```
+React.js
+NEXT.js/VITE
+Tailwind
+```
+### Backend
+```
+Python
+FastAPI
+REST APIs
+```
+### Machine Learning
+```
+Scikit-learn
+StandardScaler
+Logistic Regression
+TfidfVectorizer
+```
+
 ### [Updating Reeadme....]
 
 ## Features
