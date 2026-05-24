@@ -2,5 +2,10 @@
 __pycache__/
 *.pyc
 .env
-Audio_detection/venv/
-Backend-Scanner/venv/
+# Python virtual environments
+**/venv/
+
+# Node dependencies
+node_modules/
+
+Audio_detection/

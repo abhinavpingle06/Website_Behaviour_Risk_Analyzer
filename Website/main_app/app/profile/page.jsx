@@ -178,7 +178,7 @@ export default function ProfilePage() {
                             type="file"
                             accept="audio/*"
                             onChange={(e) => setAudio(e.target.files[0])}
-                            className="p-2 bg-[#141a3e] rounded border border-gray-600"
+                            className="p-2 bg-[#141a3e] rounded border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                         <div className="flex justify-center">
                             <button onClick={handleAudio} className="bg-blue-700 border border-gray-600 rounded-xl hover:bg-blue-800 py-2 px-10 flex justify-center font-semibold transition">
@@ -196,18 +196,19 @@ export default function ProfilePage() {
                             placeholder="Enter website URL..."
                             value={url}
                             onChange={(e) => setUrl(e.target.value)}
-                            className="p-3 rounded bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                            className="p-3 rounded bg-[#141a3e] border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
-                        <button onClick={() => window.location.href = `http://localhost:5173?url=${encodeURIComponent(url)}`} className="bg-purple-600 hover:bg-purple-700 py-2 rounded font-semibold transition">
-                            {textAudio ? <h1>Analysing the provided audio... </h1> : <h1>Analyze Audio </h1>}
-                           
-                        </button>
+                        <div className="flex justify-center">
+                            <button onClick={() => window.location.href = `http://localhost:5173?url=${encodeURIComponent(url)}`} className="bg-blue-700 border border-gray-600 rounded-xl hover:bg-blue-800 py-2 px-10 flex justify-center font-semibold transition">
+                                {textAudio ? <h1>Analysing the provided audio... </h1> : <h1>Scan Website</h1>}
+                            </button>
+                        </div>
                         <a
                             href="https://www.dropbox.com/scl/fi/paltgx93qo7myj7t5ptw7/chrome-extension.zip?rlkey=vpc74kgn54yb1t04r1gz3jzit&st=v34sm90z&dl=1"
                             download
-                            className="mt-2 flex justify-center hover:text-blue-500 hover:underline"
+                            className="flex justify-center hover:text-blue-500 hover:underline"
                         >
-                            Download Chrome Extension
+                            Download our Scanning Chrome Extension & Installation Manual
                         </a>
                         {/* <button className="mt-2 hover:text-blue-500 hover:underline"> <a href="https://www.dropbox.com/scl/fi/paltgx93qo7myj7t5ptw7/chrome-extension.zip?rlkey=vpc74kgn54yb1t04r1gz3jzit&st=v34sm90z&dl=0" download={}></a> Download Chrome Extension </button> */}
                     </div>

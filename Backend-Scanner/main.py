@@ -207,9 +207,7 @@ Instructions:
 4.Tell and analyse why my analysis model output such results.
 
 Output format:
-- Analysis Report: ( Include this fields **Model Confidence Score:** , 
-**Classification:** ,
-**Reason:** these value should be taken from the analysis report )
+- Analysis Report: 
 - Key Indicators: (bullet points explaining why)
 - Detailed Feedback: (clear explanation of reasoning)
 - Send in Markdown Format so that React react-markdown can be used to make the recive text displayed in readable way
