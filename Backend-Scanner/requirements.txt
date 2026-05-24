@@ -1,8 +1,11 @@
 fastapi
 uvicorn
-docker
 playwright
 pydantic
 scikit-learn
 numpy
+dotenv
 google-generativeai
+librosa
+soundfile
+python-multipart

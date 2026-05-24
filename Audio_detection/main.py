@@ -30,9 +30,6 @@ API_KEY = os.getenv("API_KEY", "test_key_123")
 def health():
     return {"status": "Abhik"}
 
-# =========================
-# Load ML Model Safely
-# =========================
 _model = None
 
 def get_model():

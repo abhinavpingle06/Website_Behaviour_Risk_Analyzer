@@ -25,7 +25,7 @@ export default function ProfilePage() {
             const formData = new FormData();
             formData.append("file", audio);
 
-            const response = await fetch("http://127.0.0.1:8001/api/voice-detection", {
+            const response = await fetch("http://127.0.0.1:8000/voice-detection", {
                 method: "POST",
                 headers: {
                     "x-api-key": "test_key_123"
@@ -114,11 +114,11 @@ export default function ProfilePage() {
                             placeholder="Enter text to analyze..."
                             value={text}
                             onChange={(e) => setText(e.target.value)}
-                            className="p-3 rounded bg-blue-700/10 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                className="p-3 rounded bg-[#141a3e] border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             rows={5}
                         />
                         <div className="flex justify-center">
-                                <button onClick={handelText} className="bg-blue-600 rounded-xl hover:bg-blue-700 py-2 px-10 flex justify-center font-semibold transition">
+                                <button onClick={handelText} className="bg-blue-700 border border-gray-600 rounded-xl hover:bg-blue-800 py-2 px-10 flex justify-center font-semibold transition">
                                     {loading ? <h1 className="animation animate-pulse">Analyzing...</h1> : "Analyze Text"}
                                 </button>
                         </div>
@@ -126,7 +126,7 @@ export default function ProfilePage() {
                     </div>
                 )}
                 {reply !== "" && active == "text" && (
-                        <div className="p-4 mt-4 bg-gray-700 rounded-lg border border-gray-600 max-w-none">
+                        <div className="p-4 mt-4 bg-blue-700/10 rounded-lg border border-gray-600 max-w-none">
                             <ReactMarkdown
                                 components={{
                                     h3: ({ children }) => (
@@ -178,11 +178,13 @@ export default function ProfilePage() {
                             type="file"
                             accept="audio/*"
                             onChange={(e) => setAudio(e.target.files[0])}
-                            className="p-2 bg-gray-700 rounded border border-gray-600"
+                            className="p-2 bg-[#141a3e] rounded border border-gray-600"
                         />
-                        <button onClick={handleAudio} className="bg-green-600 hover:bg-green-700 py-2 rounded font-semibold transition">
-                            {textAudio ? <h1>Analysing the provided audio... </h1> : <h1>Analyze Audio </h1>}
-                        </button>
+                        <div className="flex justify-center">
+                            <button onClick={handleAudio} className="bg-blue-700 border border-gray-600 rounded-xl hover:bg-blue-800 py-2 px-10 flex justify-center font-semibold transition">
+                                {textAudio ? <h1>Analysing the provided audio... </h1> : <h1>Analyze Audio </h1>}
+                            </button>
+                        </div>
                     </div>
                 )}
 
