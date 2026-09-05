@@ -6,6 +6,12 @@
 
 With real-time analysis capabilities, the project demonstrates how artificial intelligence can be leveraged to improve online security, reduce phishing risks, and enhance user awareness in an increasingly AI-driven digital world.
 
+## Previews 
+<img width="812" height="296" alt="image" src="https://github.com/user-attachments/assets/0cb1a9bc-fc4f-432e-a5f3-6ea39f0c949d" />
+<img width="1912" height="900" alt="image" src="https://github.com/user-attachments/assets/c432d2cb-1c66-4949-8023-dcdcb89638bb" />
+<img width="1899" height="898" alt="image" src="https://github.com/user-attachments/assets/661b9b22-06db-4dd1-9c59-580615dc9c75" />
+<img width="1132" height="833" alt="image" src="https://github.com/user-attachments/assets/45b662fb-176c-48ba-b632-07262e559db9" />
+
 ## 🔍 Project Structure 
 ```bash
 Website_Behaviour_Risk_Analyzer/
@@ -37,12 +43,6 @@ Website_Behaviour_Risk_Analyzer/
 - Extension supports Chromium-based browsers
 - Reduces the friction to just "**Right Click To Scan**"
 - Enables quick behavioural scans in real time without changing tabs
-
-## Previews 
-<img width="812" height="296" alt="image" src="https://github.com/user-attachments/assets/0cb1a9bc-fc4f-432e-a5f3-6ea39f0c949d" />
-<img width="1912" height="900" alt="image" src="https://github.com/user-attachments/assets/c432d2cb-1c66-4949-8023-dcdcb89638bb" />
-<img width="1899" height="898" alt="image" src="https://github.com/user-attachments/assets/661b9b22-06db-4dd1-9c59-580615dc9c75" />
-<img width="1132" height="833" alt="image" src="https://github.com/user-attachments/assets/45b662fb-176c-48ba-b632-07262e559db9" />
 
 # 🚀 Getting Started & Quick Set-ups
 
